@@ -1,17 +1,12 @@
-import Link from "next/link"
+import Header from "@/Components/Header/Header";
 
 function HomePage() {
   return (
     <>
+      <Header />
       <div>Home Page</div>
       <p> Welcome to Next js </p>
-      <div className="flex gap-2 text-blue-800">
-      <Link href="/about" > Go To About Page </Link>
-      <Link href="/admin" > Go To admin Page </Link>
-      <Link href="/register" > Go To register Page </Link>
-      <Link href="/login" > Go To login Page </Link>
-      </div>
     </>
-  )
+  );
 }
-export default HomePage
+export default HomePage;
