@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 // import {Noto_Kufi_Arabic} from "next/font/google";
+import Header from "@/Components/Header/Header";
 
 // const notoKufiArabic = Noto_Kufi_Arabic({subsets:['arabic'],weight:['300','500']});
 
@@ -21,6 +22,7 @@ export default function RootLayout({
       <body
         
       >
+        <Header/>
         {children}
       </body>
     </html>
