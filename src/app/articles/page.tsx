@@ -2,9 +2,11 @@ import ArticleItem from "@/Components/articles/ArticleItem";
 import { Article } from "@/utils/types";
 
 export default async function ArticlesPage() {
-  const res = await fetch("https://jsonplaceholder.typicode.com/posts");
+  const res = await fetch("https://jsonplaceholder.typicode.com/terposts");
   const data: Article[] = await res.json();
-  //  console.log(data)
+  if(!res.ok){
+    throw new Error("Failed to fetch articles");
+  }
   return (
     <section className="container m-auto px-5">
       <div className="flex items-center justify-center flex-wrap gap-7">
