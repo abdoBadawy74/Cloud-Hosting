@@ -1,0 +1,26 @@
+
+@media (max-width:1050px) {
+  .navlinks-wrapper{
+    position:absolute;
+    top:100%;
+    left:0;
+    right: 0;
+    background-color:#e5e9ec;
+    width:100%; 
+    transition: all 0.3s ease-in;
+    clip-path: polygon(0 0, 100% 0, 96% 0, 0 0);
+  }
+  .navlinks-wrapper ul{
+   padding-left :30px;
+   padding-bottom:10px;
+   margin-left:0;
+   display:flex;
+   flex-direction:column;
+   align-items:start;
+   justify-content:center;
+  }
+  .navlinks-wrapper ul a{
+    padding:0;
+    margin:12px 0
+  }
+}
