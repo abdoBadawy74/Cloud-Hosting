@@ -1,7 +1,17 @@
-import React from 'react'
+import ArticleItem from "@/Components/articles/ArticleItem";
+import { Article } from "@/utils/types";
 
-export default function ArticlesPage() {
+export default async function ArticlesPage() {
+  const res = await fetch("https://jsonplaceholder.typicode.com/posts");
+  const data: Article[] = await res.json();
+  //  console.log(data)
   return (
-    <div>ArticlesPage</div>
-  )
+    <section className="container m-auto px-5">
+      <div className="flex items-center justify-center flex-wrap gap-7">
+        {data.map((item) => (
+          <ArticleItem key={item.id} article={item} />
+        ))}
+      </div>
+    </section>
+  );
 }

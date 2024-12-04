@@ -1,7 +1,5 @@
-
-
 function HomePage() {
-  console.log("this is home ")
+  console.log("this is home ");
   return (
     <>
       <div>Home Page</div>

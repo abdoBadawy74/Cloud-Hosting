@@ -6,10 +6,9 @@ import Header from "@/Components/Header/Header";
 
 // const notoKufiArabic = Noto_Kufi_Arabic({subsets:['arabic'],weight:['300','500']});
 
-
 export const metadata: Metadata = {
   title: "Cloud Hosting",
-  description: "Cloud Hosting Project"
+  description: "Cloud Hosting Project",
 };
 
 export default function RootLayout({
@@ -19,10 +18,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        
-      >
-        <Header/>
+      <body>
+        <Header />
         {children}
       </body>
     </html>
