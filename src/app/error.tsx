@@ -8,7 +8,7 @@ interface ErrorPageProps {
 
 function ErrorPage({ error, reset }: ErrorPageProps) {
   return (
-    <div className="pt-7 text-center ">
+    <div className="fixed-height pt-7 text-center ">
       <div className="text-xl text-red-600 font-semibold">
         some thing went wrong
         <h3 className="text-gray-500 ">Error Message : {error.message}</h3>
