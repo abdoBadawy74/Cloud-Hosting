@@ -9,6 +9,8 @@ interface SingleArticlePageProps {
 }
 
 const SingleArticlePage = async (props: SingleArticlePageProps) => {
+  await new Promise((resolve) => setTimeout(resolve, 5000));
+  
   const { id } = await props.params;
   const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`);
   if (!res.ok) {
