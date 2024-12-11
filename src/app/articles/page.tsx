@@ -1,5 +1,6 @@
 import ArticleItem from "@/Components/articles/ArticleItem";
 import { Article } from "@/utils/types";
+import type { Metadata } from "next";
 
 export default async function ArticlesPage() {
   const res = await fetch("https://jsonplaceholder.typicode.com/posts");
@@ -17,3 +18,8 @@ export default async function ArticlesPage() {
     </section>
   );
 }
+
+export const metadata: Metadata = {
+  title: "Articles Page",
+  description: "Articles Programming page",
+};
