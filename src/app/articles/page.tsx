@@ -1,4 +1,5 @@
 import ArticleItem from "@/Components/articles/ArticleItem";
+import SearchArticleInput from "@/Components/articles/SearchArticleInput";
 import { Article } from "@/utils/types";
 import type { Metadata } from "next";
 
@@ -10,6 +11,7 @@ export default async function ArticlesPage() {
   }
   return (
     <section className="container m-auto px-5">
+      <SearchArticleInput />
       <div className="flex items-center justify-center flex-wrap gap-7">
         {data.map((item) => (
           <ArticleItem key={item.id} article={item} />
