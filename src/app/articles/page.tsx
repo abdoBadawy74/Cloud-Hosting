@@ -1,4 +1,5 @@
 import ArticleItem from "@/Components/articles/ArticleItem";
+import Pagination from "@/Components/articles/Pagination";
 import SearchArticleInput from "@/Components/articles/SearchArticleInput";
 import { Article } from "@/utils/types";
 import type { Metadata } from "next";
@@ -10,13 +11,14 @@ export default async function ArticlesPage() {
     throw new Error("Failed to fetch articles");
   }
   return (
-    <section className="container m-auto px-5">
+    <section className="container m-auto px-5 fixed-height">
       <SearchArticleInput />
       <div className="flex items-center justify-center flex-wrap gap-7">
-        {data.map((item) => (
+        {data.slice(0, 6).map((item) => (
           <ArticleItem key={item.id} article={item} />
         ))}
       </div>
+      <Pagination />
     </section>
   );
 }
