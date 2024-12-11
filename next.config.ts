@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
         "*.mdx": ["mdx-loader"], // استخدم النمط الجديد للملفات
       },
     },
+    isrFlushToDisk: false, // تعطيل الحفظ المؤقت للصفحات
   },
 };
 
