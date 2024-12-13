@@ -5,6 +5,7 @@ import { Article } from "@/utils/types";
 import type { Metadata } from "next";
 
 export default async function ArticlesPage() {
+  await new Promise((resolve) => setTimeout(resolve, 5000)); // Simulate slow network
   const res = await fetch("https://jsonplaceholder.typicode.com/posts");
   const data: Article[] = await res.json();
   if (!res.ok) {
