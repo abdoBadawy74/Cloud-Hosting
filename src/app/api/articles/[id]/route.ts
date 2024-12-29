@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { articles } from "@/utils/data";
 import { UpdateArticleDto } from "@/utils/dtos";
+import prisma from "@/utils/db";
 
 interface Props {
   params: {
@@ -16,16 +17,25 @@ interface Props {
  * @access Public
  */
 
-export function GET(request: NextRequest, { params }: Props) {
-  const article = articles.find(
-    (article) => article.id === parseInt(params.id)
-  );
+export async function GET(request: NextRequest, { params }: Props) {
+  try {
+    const article = await prisma.article.findUnique({
+      where: {
+        id: parseInt(params.id),
+      },
+    });
 
-  if (!article) {
-    return NextResponse.json({ message: "Article not found" }, { status: 404 });
+    if (!article) {
+      return NextResponse.json(
+        { message: "Article not found" },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json(article, { status: 200 });
+  } catch (err) {
+    return NextResponse.json({ message: "Server Error" }, { status: 500 });
   }
-
-  return NextResponse.json(article, { status: 200 });
 }
 
 /*
@@ -57,9 +67,6 @@ export async function PUT(request: NextRequest, { params }: Props) {
   );
 }
 
-
-
-
 /*
  * @method DELETE
  * @description Delete single article by id
@@ -69,19 +76,18 @@ export async function PUT(request: NextRequest, { params }: Props) {
  */
 
 export async function DELETE(request: NextRequest, { params }: Props) {
-    const article = articles.find(
-      (article) => article.id === parseInt(params.id)
-    );
-  
-    if (!article) {
-      return NextResponse.json({ message: "Article not found" }, { status: 404 });
-    }
-  
-    return NextResponse.json(
-      {
-        message: "Article deleted successfully",
-      },
-      { status: 200 }
-    );
+  const article = articles.find(
+    (article) => article.id === parseInt(params.id)
+  );
+
+  if (!article) {
+    return NextResponse.json({ message: "Article not found" }, { status: 404 });
   }
-  
+
+  return NextResponse.json(
+    {
+      message: "Article deleted successfully",
+    },
+    { status: 200 }
+  );
+}

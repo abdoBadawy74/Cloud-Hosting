@@ -1,23 +1,34 @@
 import { NextRequest, NextResponse } from "next/server";
-import { articles } from "@/utils/data";
 import { createArticleSchema } from "@/utils/validationSchemas";
 import { CreateArticleDto } from "@/utils/dtos";
+import { Article } from "@prisma/client";
+import prisma from "@/utils/db";
 
 
-/* 
-* @method GET
-* @description Get all articles
-* @returns {Array} articles
-* @route ~/api/articles
-* @access Public
-*/
+/*
+ * @method GET
+ * @description Get all articles
+ * @returns {Array} articles
+ * @route ~/api/articles
+ * @access Public
+ */
 
-export function GET(request: NextRequest) {
+export async function GET(request: NextRequest) {
   //   console.log(request);
-  // return the articles array as JSON
-  return NextResponse.json(articles, { status: 200 });
+  try {
+    const articles = await prisma.article.findMany();
+    // return the articles array as JSON
+    return NextResponse.json(articles, { status: 200 });
+  } catch (err) {
+    // console.log(err);
+    return NextResponse.json(
+      {
+        message: "Server Error",
+      },
+      { status: 500 }
+    );
+  }
 }
-
 
 /*
  * @method POST
@@ -28,24 +39,35 @@ export function GET(request: NextRequest) {
  */
 
 export async function POST(request: NextRequest) {
-  const body = (await request.json()) as CreateArticleDto;
-  //   console.log(body);
+  try {
+    const body = (await request.json()) as CreateArticleDto;
+    //   console.log(body);
 
-  const vakidation = createArticleSchema.safeParse(body);
-  if (!vakidation.success) {
+    const vakidation = createArticleSchema.safeParse(body);
+    if (!vakidation.success) {
+      return NextResponse.json(
+        {
+          message: vakidation.error.errors[0].message,
+        },
+        { status: 400 }
+      );
+    }
+
+    const newArticle: Article = await prisma.article.create({
+      data: {
+        title: body.title,
+        description: body.description,
+      },
+    });
+
+    return NextResponse.json(newArticle, { status: 201 });
+  } catch (err) {
+    console.log(err);
     return NextResponse.json(
       {
-        message: vakidation.error.errors[0].message,
+        message: "Server Error",
       },
-      { status: 400 }
+      { status: 500 }
     );
   }
-
-  const newArticle = {
-    id: articles.length + 1,
-    userId: 101,
-    ...body,
-  };
-  articles.push(newArticle);
-  return NextResponse.json(newArticle, { status: 201 });
 }
